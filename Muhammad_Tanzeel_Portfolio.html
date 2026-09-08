@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Muhammad Tanzeel — Data Analyst Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#EEF1F5;
+    --paper-deep:#E5EAEF;
+    --line:#CBD5DE;
+    --ink:#131B24;
+    --ink-soft:#4B5761;
+    --ink-faint:#7C8791;
+    --white:#FCFDFE;
+    --amber:#B9741A;
+    --amber-soft:#F4E4C6;
+    --radius:2px;
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'IBM Plex Sans', sans-serif;
+    font-size:16px;
+    line-height:1.55;
+    background-image:
+      linear-gradient(var(--line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line) 1px, transparent 1px);
+    background-size:64px 64px;
+    background-position:-1px -1px;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation:none !important; transition:none !important;}
+  }
+
+  a{color:inherit;}
+
+  .sheet{
+    max-width:920px;
+    margin:0 auto;
+    background:var(--white);
+    border-left:1px solid var(--line);
+    border-right:1px solid var(--line);
+    box-shadow:0 0 0 1px rgba(19,27,36,0.03);
+  }
+
+  /* ---------- header bar ---------- */
+  .topbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:baseline;
+    padding:22px 40px;
+    border-bottom:1px solid var(--line);
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    letter-spacing:0.02em;
+    color:var(--ink-faint);
+  }
+  .topbar span.file{color:var(--ink-soft);}
+
+  /* ---------- hero ---------- */
+  .hero{
+    padding:64px 40px 48px;
+    border-bottom:1px solid var(--line);
+  }
+  .hero-row{
+    display:0;
+  }
+  .hero h1{
+    font-family:'Fraunces', serif;
+    font-weight:500;
+    font-size:clamp(2rem, 4.4vw, 3.1rem);
+    line-height:1.16;
+    max-width:15ch;
+    letter-spacing:-0.01em;
+    opacity:0;
+    animation:rise .7s ease forwards;
+  }
+  .hero h1 span{display:block;}
+  .hero h1 span:nth-child(1){animation-delay:.02s;}
+  .hero h1 span:nth-child(2){animation-delay:.14s;}
+
+  @keyframes rise{
+    from{opacity:0; transform:translateY(10px);}
+    to{opacity:1; transform:translateY(0);}
+  }
+  .hero h1{animation:none;} /* reset parent, animate children instead */
+  .hero h1 span{opacity:0; animation:rise .6s ease forwards;}
+
+  .byline{
+    margin-top:22px;
+    font-size:15px;
+    color:var(--ink-soft);
+  }
+  .byline strong{color:var(--ink); font-weight:600;}
+
+  .contact-row{
+    margin-top:14px;
+    display:flex;
+    flex-wrap:wrap;
+    gap:4px 22px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:13px;
+    color:var(--ink-soft);
+  }
+  .contact-row a{border-bottom:1px solid var(--line); padding-bottom:1px;}
+  .contact-row a:hover{border-color:var(--amber); color:var(--amber);}
+
+  /* ---------- stat cells (spreadsheet references) ---------- */
+  .cells{
+    margin-top:40px;
+    display:grid;
+    grid-template-columns:repeat(4, 1fr);
+    border-top:1px solid var(--line);
+    border-left:1px solid var(--line);
+  }
+  .cell{
+    border-right:1px solid var(--line);
+    border-bottom:1px solid var(--line);
+    padding:14px 16px 16px;
+  }
+  .cell .ref{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    color:var(--ink-faint);
+  }
+  .cell .val{
+    margin-top:10px;
+    font-family:'Fraunces', serif;
+    font-size:1.7rem;
+    font-weight:500;
+    color:var(--amber);
+  }
+  .cell .lab{
+    margin-top:2px;
+    font-size:12.5px;
+    color:var(--ink-soft);
+  }
+
+  /* ---------- section shell ---------- */
+  section{
+    padding:44px 40px;
+    border-bottom:1px solid var(--line);
+  }
+  section:last-of-type{border-bottom:none;}
+  .section-head{
+    display:flex;
+    align-items:baseline;
+    gap:14px;
+    margin-bottom:26px;
+  }
+  .section-head .idx{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    color:var(--ink-faint);
+  }
+  .section-head h2{
+    font-family:'Fraunces', serif;
+    font-weight:500;
+    font-size:1.4rem;
+  }
+
+  .lede{
+    max-width:64ch;
+    color:var(--ink-soft);
+    font-size:15.5px;
+  }
+
+  /* ---------- skills as ledger rows ---------- */
+  .skill-row{
+    display:grid;
+    grid-template-columns:190px 1fr;
+    gap:18px;
+    padding:13px 0;
+    border-top:1px solid var(--line);
+  }
+  .skill-row:last-child{border-bottom:1px solid var(--line);}
+  .skill-row .cat{
+    font-size:13.5px;
+    color:var(--ink-soft);
+    padding-top:2px;
+  }
+  .tags{display:flex; flex-wrap:wrap; gap:8px;}
+  .tag{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    padding:4px 9px;
+    background:var(--paper-deep);
+    border:1px solid var(--line);
+    color:var(--ink);
+  }
+
+  /* ---------- projects as ledger entries ---------- */
+  .entry{
+    display:grid;
+    grid-template-columns:44px 1fr;
+    gap:18px;
+    padding:24px 0;
+    border-top:1px solid var(--line);
+  }
+  .entry:last-child{border-bottom:1px solid var(--line);}
+  .entry .num{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    color:var(--ink-faint);
+    padding-top:4px;
+  }
+  .entry h3{
+    font-family:'Fraunces', serif;
+    font-weight:500;
+    font-size:1.15rem;
+  }
+  .entry .stack{
+    margin-top:4px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    color:var(--amber);
+  }
+  .entry ul{
+    margin-top:12px;
+    padding-left:18px;
+    color:var(--ink-soft);
+    font-size:14.5px;
+  }
+  .entry li{margin-top:6px;}
+  .entry li::marker{color:var(--ink-faint);}
+
+  /* ---------- footer grid: education / certs / strengths / languages ---------- */
+  .foot-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:0;
+    border-top:1px solid var(--line);
+    border-left:1px solid var(--line);
+  }
+  .foot-cell{
+    border-right:1px solid var(--line);
+    border-bottom:1px solid var(--line);
+    padding:20px 22px;
+  }
+  .foot-cell h4{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11.5px;
+    color:var(--ink-faint);
+    margin-bottom:10px;
+  }
+  .foot-cell p, .foot-cell .list{
+    font-size:14px;
+    color:var(--ink-soft);
+  }
+  .foot-cell .big{
+    font-family:'Fraunces', serif;
+    font-size:1.1rem;
+    color:var(--ink);
+  }
+
+  /* ---------- closing / contact CTA ---------- */
+  .closing{
+    padding:56px 40px 64px;
+  }
+  .closing h2{
+    font-family:'Fraunces', serif;
+    font-weight:500;
+    font-size:1.7rem;
+    max-width:26ch;
+    line-height:1.3;
+  }
+  .closing p{
+    margin-top:16px;
+    max-width:56ch;
+    color:var(--ink-soft);
+    font-size:15px;
+  }
+  .cta-row{
+    margin-top:26px;
+    display:flex;
+    gap:14px;
+    flex-wrap:wrap;
+  }
+  .cta{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:13px;
+    padding:11px 18px;
+    border:1px solid var(--ink);
+    color:var(--ink);
+    text-decoration:none;
+    transition:background .15s ease, color .15s ease;
+  }
+  .cta:hover{background:var(--ink); color:var(--white);}
+  .cta.alt{border-color:var(--line); color:var(--ink-soft);}
+  .cta.alt:hover{background:var(--amber-soft); border-color:var(--amber); color:var(--ink); }
+
+  footer.foot{
+    padding:20px 40px;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11.5px;
+    color:var(--ink-faint);
+    display:flex;
+    justify-content:space-between;
+  }
+
+  @media (max-width:640px){
+    .topbar, .hero, section, .closing{padding-left:22px; padding-right:22px;}
+    .cells{grid-template-columns:1fr 1fr;}
+    .skill-row{grid-template-columns:1fr;}
+    .foot-grid{grid-template-columns:1fr;}
+    .entry{grid-template-columns:30px 1fr;}
+  }
+</style>
+</head>
+<body>
+
+<div class="sheet">
+
+  <div class="topbar">
+    <span>ledger — cv.xlsx</span>
+    <span class="file">rows 1–42 · last updated 2026</span>
+  </div>
+
+  <div class="hero">
+    <h1><span>Comfortable moving from</span><span>a messy spreadsheet to a working model.</span></h1>
+    <div class="byline"><strong>Muhammad Tanzeel</strong> — Computer Science undergraduate building toward data analytics, data science, and applied AI/ML.</div>
+    <div class="contact-row">
+      <a href="mailto:tanzeelofficial2@gmail.com">tanzeelofficial2@gmail.com</a>
+      <a href="tel:+923421652139">0342 165 2139</a>
+      <span>Pakistan</span>
+    </div>
+
+    <div class="cells">
+      <div class="cell">
+        <div class="ref">A1</div>
+        <div class="val">3.23</div>
+        <div class="lab">CGPA, BSCS</div>
+      </div>
+      <div class="cell">
+        <div class="ref">B1</div>
+        <div class="val">04</div>
+        <div class="lab">projects shipped</div>
+      </div>
+      <div class="cell">
+        <div class="ref">C1</div>
+        <div class="val">08</div>
+        <div class="lab">courses completed</div>
+      </div>
+      <div class="cell">
+        <div class="ref">D1</div>
+        <div class="val">2028</div>
+        <div class="lab">expected graduation</div>
+      </div>
+    </div>
+  </div>
+
+  <section>
+    <div class="section-head"><span class="idx">01</span><h2>Profile</h2></div>
+    <p class="lede">Second-year Computer Science student with a working foundation in Python, statistics, SQL, and data visualization, built mostly through hands-on projects rather than a classroom alone. Comfortable taking a structured dataset from cleaning through to a chart or a small web app — using Pandas and NumPy for the analysis, Matplotlib and Seaborn for the visuals, and Flask when the output needs to live on the web. Currently working toward the kind of practical, dataset-facing skills that data analytics and AI/ML roles ask for, and looking for a first opportunity to apply them on something real.</p>
+  </section>
+
+  <section>
+    <div class="section-head"><span class="idx">02</span><h2>Skills</h2></div>
+
+    <div class="skill-row">
+      <div class="cat">Programming languages</div>
+      <div class="tags"><span class="tag">Python</span><span class="tag">C++</span><span class="tag">JavaScript</span></div>
+    </div>
+    <div class="skill-row">
+      <div class="cat">Data analysis</div>
+      <div class="tags"><span class="tag">Pandas</span><span class="tag">NumPy</span><span class="tag">Data cleaning</span><span class="tag">EDA</span><span class="tag">Statistics</span></div>
+    </div>
+    <div class="skill-row">
+      <div class="cat">Visualization</div>
+      <div class="tags"><span class="tag">Matplotlib</span><span class="tag">Seaborn</span><span class="tag">Power BI</span><span class="tag">Dashboards</span></div>
+    </div>
+    <div class="skill-row">
+      <div class="cat">Databases</div>
+      <div class="tags"><span class="tag">SQL</span><span class="tag">Relational DB design</span></div>
+    </div>
+    <div class="skill-row">
+      <div class="cat">AI / machine learning</div>
+      <div class="tags"><span class="tag">ML fundamentals</span><span class="tag">AI fundamentals</span><span class="tag">Data preparation</span></div>
+    </div>
+    <div class="skill-row">
+      <div class="cat">Web development</div>
+      <div class="tags"><span class="tag">HTML5</span><span class="tag">CSS3</span><span class="tag">JavaScript</span><span class="tag">React</span><span class="tag">Flask</span><span class="tag">Jinja2</span></div>
+    </div>
+    <div class="skill-row">
+      <div class="cat">Tools</div>
+      <div class="tags"><span class="tag">VS Code</span><span class="tag">Git / GitHub</span><span class="tag">Jupyter Notebook</span></div>
+    </div>
+    <div class="skill-row">
+      <div class="cat">Core CS</div>
+      <div class="tags"><span class="tag">OOP</span><span class="tag">Problem solving</span><span class="tag">Algorithms & data structures</span></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head"><span class="idx">03</span><h2>Projects</h2></div>
+
+    <div class="entry">
+      <div class="num">01</div>
+      <div>
+        <h3>Personal Finance AI</h3>
+        <div class="stack">Python · Data analysis · AI/ML · Visualization</div>
+        <ul>
+          <li>An AI-powered personal finance analytics concept for tracking income, expenses, and spending patterns.</li>
+          <li>Planned data processing and visualization workflows to help users understand their spending behavior and identify major categories.</li>
+          <li>Focused on turning raw financial records into actionable insight, with room for smarter recommendations later.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="num">02</div>
+      <div>
+        <h3>Tourism Web Application</h3>
+        <div class="stack">Python · Flask · HTML · CSS · Jinja2</div>
+        <ul>
+          <li>A Flask-based tourism web app built with reusable templates and a structured page layout.</li>
+          <li>Implemented routing, template inheritance, and dynamic content using Flask and Jinja2.</li>
+          <li>Practiced frontend styling alongside backend concepts, including database integration.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="num">03</div>
+      <div>
+        <h3>Data Analysis & Visualization Projects</h3>
+        <div class="stack">Python · Pandas · NumPy · Matplotlib · Seaborn</div>
+        <ul>
+          <li>Cleaned, aggregated, and explored practice datasets end to end, from raw table to summary statistics.</li>
+          <li>Used Pandas and NumPy for manipulation, and Matplotlib/Seaborn for the analytical charts.</li>
+          <li>Worked with means, medians, ranges, distributions, and category-based comparisons.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="num">04</div>
+      <div>
+        <h3>Student Performance Analysis</h3>
+        <div class="stack">Python · NumPy · Pandas · Statistics</div>
+        <ul>
+          <li>Analyzed student performance across multiple subjects to surface patterns and comparisons.</li>
+          <li>Applied statistical summaries and visuals to communicate the findings clearly.</li>
+          <li>Practiced turning raw tabular records into a readable set of insights.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding-bottom:0; border-bottom:none;">
+    <div class="section-head"><span class="idx">04</span><h2>Background</h2></div>
+    <div class="foot-grid">
+      <div class="foot-cell">
+        <h4>education</h4>
+        <p class="big">BS Computer Science</p>
+        <p>2024 – 2028 · CGPA 3.23</p>
+      </div>
+      <div class="foot-cell">
+        <h4>languages spoken</h4>
+        <p>Urdu — native</p>
+        <p>English — working proficiency</p>
+      </div>
+      <div class="foot-cell">
+        <h4>courses & certifications</h4>
+        <p>Python Programming, Data Analysis, Data Science, AI/ML, HTML & CSS, JavaScript, React, C++</p>
+      </div>
+      <div class="foot-cell">
+        <h4>core strengths</h4>
+        <p>Analytical thinking, problem solving, data-driven decision making, fast learning, team collaboration, research & self-learning, attention to detail</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="closing">
+    <h2>Looking for an internship or junior role in data analytics, data science, or AI/ML.</h2>
+    <p>Open to work on real datasets and production software, and to grow into a full-time data or AI role. Happy to share code samples or walk through any of the projects above in more detail.</p>
+    <div class="cta-row">
+      <a class="cta" href="mailto:tanzeelofficial2@gmail.com">Email me</a>
+      <a class="cta alt" href="tel:+923421652139">Call — 0342 165 2139</a>
+    </div>
+  </div>
+
+  <footer class="foot">
+    <span>Muhammad Tanzeel</span>
+    <span>Pakistan</span>
+  </footer>
+
+</div>
+
+</body>
+</html>
